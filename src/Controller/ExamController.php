@@ -8,6 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Service\ShortUrls;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Exam Controller
@@ -116,11 +117,12 @@ class ExamController extends FOSRestController
     /**
      * @Rest\Post("/expand")
      * 
-     * @return JsonResponse
+     * @return Response
      */
     public function expandShortenUrl(Request $request)
     {
-        $response = new JsonResponse();
+        $response = new Response();
+        $response->headers->set('Content-Type', 'application/json');
         $response->headers->set('Access-Control-Allow-Origin', '*');
 
         $shortCode = $request->request->get('code', '');
@@ -129,7 +131,7 @@ class ExamController extends FOSRestController
                 'code' => 404,
                 'error' => 'No short code supplied.'
             ];
-            $response->setData($data);
+            $response->setData(json_encode($data));
             return $response;
         }
 
@@ -139,7 +141,7 @@ class ExamController extends FOSRestController
                 'code' => 404,
                 'error' => 'Short code does not exist.'
             ];
-            $response->setData($data);
+            $response->setData(json_encode($data));
             return $response;
         }
 
@@ -147,7 +149,7 @@ class ExamController extends FOSRestController
             'code' => 200,
             'long_url' => $urlObj->getLongUrl()
         ];
-        $response->setData($data);
+        $response->setData(json_encode($data));
         return $response;
     }
 }
