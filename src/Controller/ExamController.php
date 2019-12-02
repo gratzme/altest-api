@@ -33,7 +33,7 @@ class ExamController extends FOSRestController
     {
         $urlList = $this->shortUrls->getUrlList();
         $response = new Response();
-        $response->setData($urlList);
+        $response->setData(json_encode($urlList));
         $response->headers->set('Content-Type', 'application/json');
         $response->headers->set('Access-Control-Allow-Origin', '*');
         return $response;
@@ -57,7 +57,7 @@ class ExamController extends FOSRestController
                 'code' => 404,
                 'error' => 'No URL supplied.'
             ];
-            $response->setData($data);
+            $response->setData(json_encode($data));
             return $response;
         }
 
@@ -66,7 +66,7 @@ class ExamController extends FOSRestController
                 'code' => 404,
                 'error' => 'Invalid URL.'
             ];
-            $response->setData($data);
+            $response->setData(json_encode($data));
             return $response;
         }
 
@@ -75,7 +75,7 @@ class ExamController extends FOSRestController
                 'code' => 404,
                 'error' => 'URL does not appear to exist.'
             ];
-            $response->setData($data);
+            $response->setData(json_encode($data));
             return $response;
         }
 
@@ -91,7 +91,7 @@ class ExamController extends FOSRestController
         $data['code'] = 200;
         $data['short_code'] = $shortCode;
 
-        $response->setData($data);
+        $response->setData(json_encode($data));
         return $response;
     }
 
@@ -130,7 +130,7 @@ class ExamController extends FOSRestController
                 'code' => 404,
                 'error' => 'No short code supplied.'
             ];
-            $response->setData($data);
+            $response->setData(json_encode($data));
             return $response;
         }
 
@@ -140,7 +140,7 @@ class ExamController extends FOSRestController
                 'code' => 404,
                 'error' => 'Short code does not exist.'
             ];
-            $response->setData($data);
+            $response->setData(json_encode($data));
             return $response;
         }
 
@@ -148,7 +148,7 @@ class ExamController extends FOSRestController
             'code' => 200,
             'long_url' => $urlObj->getLongUrl()
         ];
-        $response->setData($data);
+        $response->setData(json_encode($data));
         return $response;
     }
 }
