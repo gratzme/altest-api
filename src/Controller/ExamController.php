@@ -5,13 +5,14 @@ namespace App\Controller;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Service\ShortUrls;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Exam Controller
- * @Route("/api", name="api_")
+ * @Route("/api", name="api_",)
  */
 class ExamController extends FOSRestController
 {
