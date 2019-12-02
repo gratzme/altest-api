@@ -8,7 +8,6 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Service\ShortUrls;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Exam Controller
@@ -33,11 +32,7 @@ class ExamController extends FOSRestController
     public function list()
     {
         $urlList = $this->shortUrls->getUrlList();
-        // $response = new JsonResponse($urlList);
-        // $response->headers->set('Access-Control-Allow-Origin', '*');
-        $response = new Response();
-        $response->setContent(json_encode($urlList));
-        $response->headers->set('Content-Type', 'application/json');
+        $response = new JsonResponse($urlList);
         $response->headers->set('Access-Control-Allow-Origin', '*');
         return $response;
     }
