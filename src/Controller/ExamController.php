@@ -5,7 +5,7 @@ namespace App\Controller;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 use App\Service\ShortUrls;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -27,12 +27,14 @@ class ExamController extends FOSRestController
      * Lists all urls
      * @Rest\Get("/list")
      * 
-     * @return JsonResponse
+     * @return Response
      */
     public function list()
     {
         $urlList = $this->shortUrls->getUrlList();
-        $response = new JsonResponse($urlList);
+        $response = new Response();
+        $response->setData($urlList);
+        $response->headers->set('Content-Type', 'application/json');
         $response->headers->set('Access-Control-Allow-Origin', '*');
         return $response;
     }
@@ -41,18 +43,21 @@ class ExamController extends FOSRestController
      * converts long url to shortcode
      * @Rest\Post("/shorten")
      * 
-     * @return JsonResponse
+     * @return Response
      */
     public function shortenUrl(Request $request)
     {
+        $response = new Response();
+        $response->headers->set('Content-Type', 'application/json');
+        $response->headers->set('Access-Control-Allow-Origin', '*');
+
         $url = $request->request->get('url', '');
         if(empty($url)) {
             $data = [
                 'code' => 404,
                 'error' => 'No URL supplied.'
             ];
-            $response = new JsonResponse($data);
-            $response->headers->set('Access-Control-Allow-Origin', '*');
+            $response->setData($data);
             return $response;
         }
 
@@ -61,8 +66,7 @@ class ExamController extends FOSRestController
                 'code' => 404,
                 'error' => 'Invalid URL.'
             ];
-            $response = new JsonResponse($data);
-            $response->headers->set('Access-Control-Allow-Origin', '*');
+            $response->setData($data);
             return $response;
         }
 
@@ -71,8 +75,7 @@ class ExamController extends FOSRestController
                 'code' => 404,
                 'error' => 'URL does not appear to exist.'
             ];
-            $response = new JsonResponse($data);
-            $response->headers->set('Access-Control-Allow-Origin', '*');
+            $response->setData($data);
             return $response;
         }
 
@@ -88,8 +91,7 @@ class ExamController extends FOSRestController
         $data['code'] = 200;
         $data['short_code'] = $shortCode;
 
-        $response = new JsonResponse($data);
-        $response->headers->set('Access-Control-Allow-Origin', '*');
+        $response->setData($data);
         return $response;
     }
 
@@ -118,14 +120,17 @@ class ExamController extends FOSRestController
      */
     public function expandShortenUrl(Request $request)
     {
+        $response = new Response();
+        $response->headers->set('Content-Type', 'application/json');
+        $response->headers->set('Access-Control-Allow-Origin', '*');
+
         $shortCode = $request->request->get('code', '');
         if(empty($shortCode)) {
             $data = [
                 'code' => 404,
                 'error' => 'No short code supplied.'
             ];
-            $response = new JsonResponse($data);
-            $response->headers->set('Access-Control-Allow-Origin', '*');
+            $response->setData($data);
             return $response;
         }
 
@@ -135,8 +140,7 @@ class ExamController extends FOSRestController
                 'code' => 404,
                 'error' => 'Short code does not exist.'
             ];
-            $response = new JsonResponse($data);
-            $response->headers->set('Access-Control-Allow-Origin', '*');
+            $response->setData($data);
             return $response;
         }
 
@@ -144,8 +148,7 @@ class ExamController extends FOSRestController
             'code' => 200,
             'long_url' => $urlObj->getLongUrl()
         ];
-        $response = new JsonResponse($data);
-        $response->headers->set('Access-Control-Allow-Origin', '*');
+        $response->setData($data);
         return $response;
     }
 }
