@@ -47,8 +47,9 @@ class ExamController extends FOSRestController
     {
         $response = new JsonResponse();
 
-        $url = $request->request->get('url', '');
-        $url = json_decode($url, TRUE);
+        $content = $request->getContent();
+        $params = json_decode($content, TRUE);
+        $shortCode = $params['url'];
         
         if(empty($url)) {
             $data = [
@@ -123,12 +124,9 @@ class ExamController extends FOSRestController
     {
         $response = new JsonResponse();
         
-        // $shortCode = $request->request->get('code', '');
-        // $shortCode = json_decode($shortCode, TRUE);
         $content = $request->getContent();
         $params = json_decode($content, TRUE);
-        $response->setData($params['code']);
-        return $response;
+        $shortCode = $params['code'];
 
         if(empty($shortCode)) {
             $data = [
