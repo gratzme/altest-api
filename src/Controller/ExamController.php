@@ -42,12 +42,11 @@ class ExamController extends FOSRestController
      * converts long url to shortcode
      * @Rest\Post("/shorten")
      * 
-     * @return Response
+     * @return JsonResponse
      */
     public function shortenUrl(Request $request)
     {
-        $response = new Response();
-        $response->headers->set('Content-Type', 'application/json');
+        $response = new JsonResponse();
         $response->headers->set('Access-Control-Allow-Origin', '*');
 
         $url = $request->request->get('url', '');
@@ -56,7 +55,7 @@ class ExamController extends FOSRestController
                 'code' => 404,
                 'error' => 'No URL supplied.'
             ];
-            $response->setData(json_encode($data));
+            $response->setData($data);
             return $response;
         }
 
@@ -65,7 +64,7 @@ class ExamController extends FOSRestController
                 'code' => 404,
                 'error' => 'Invalid URL.'
             ];
-            $response->setData(json_encode($data));
+            $response->setData($data);
             return $response;
         }
 
@@ -74,7 +73,7 @@ class ExamController extends FOSRestController
                 'code' => 404,
                 'error' => 'URL does not appear to exist.'
             ];
-            $response->setData(json_encode($data));
+            $response->setData($data);
             return $response;
         }
 
@@ -90,7 +89,7 @@ class ExamController extends FOSRestController
         $data['code'] = 200;
         $data['short_code'] = $shortCode;
 
-        $response->setData(json_encode($data));
+        $response->setData($data);
         return $response;
     }
 
@@ -116,10 +115,12 @@ class ExamController extends FOSRestController
 
     /**
      * @Rest\Post("/expand")
+     * 
+     * @return JsonResponse
      */
     public function expandShortenUrl(Request $request)
     {
-        $response = new Response();
+        $response = new JsonResponse();
         $response->headers->set('Content-Type', 'application/json');
         $response->headers->set('Access-Control-Allow-Origin', '*');
 
@@ -129,7 +130,7 @@ class ExamController extends FOSRestController
                 'code' => 404,
                 'error' => 'No short code supplied.'
             ];
-            $response->setData(json_encode($data));
+            $response->setData($data);
             return $response;
         }
 
@@ -139,7 +140,7 @@ class ExamController extends FOSRestController
                 'code' => 404,
                 'error' => 'Short code does not exist.'
             ];
-            $response->setData(json_encode($data));
+            $response->setData($data);
             return $response;
         }
 
@@ -147,7 +148,7 @@ class ExamController extends FOSRestController
             'code' => 200,
             'long_url' => $urlObj->getLongUrl()
         ];
-        $response->setData(json_encode($data));
+        $response->setData($data);
         return $response;
     }
 }
