@@ -49,7 +49,7 @@ class ExamController extends FOSRestController
 
         $content = $request->getContent();
         $params = json_decode($content, TRUE);
-        $shortCode = $params['url'];
+        $url = $params['url'];
         
         if(empty($url)) {
             $data = [
