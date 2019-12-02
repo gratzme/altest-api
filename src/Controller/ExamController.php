@@ -48,6 +48,8 @@ class ExamController extends FOSRestController
         $response = new JsonResponse();
 
         $url = $request->request->get('url', '');
+        $url = json_decode($url, TRUE);
+        
         if(empty($url)) {
             $data = [
                 'code' => 404,
@@ -112,6 +114,7 @@ class ExamController extends FOSRestController
     }
 
     /**
+     * gets long_url by short_code
      * @Rest\Post("/expand")
      * 
      * @return JsonResponse
@@ -119,8 +122,10 @@ class ExamController extends FOSRestController
     public function expandShortenUrl(Request $request)
     {
         $response = new JsonResponse();
-
+        
         $shortCode = $request->request->get('code', '');
+        $shortCode = json_decode($shortCode, TRUE);
+
         if(empty($shortCode)) {
             $data = [
                 'code' => 404,
