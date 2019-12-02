@@ -147,7 +147,6 @@ class ExamController extends FOSRestController
             'long_url' => $urlObj->getLongUrl()
         ];
         $response->setData($data);
-        $response->headers->set('Access-Control-Allow-Origin', '*');
         
         return $response;
     }
