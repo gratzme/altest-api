@@ -117,12 +117,11 @@ class ExamController extends FOSRestController
     /**
      * @Rest\Post("/expand")
      * 
-     * @return Response
+     * @return JsonResponse
      */
     public function expandShortenUrl(Request $request)
     {
-        $response = new Response();
-        $response->headers->set('Content-Type', 'application/json');
+        $response = new JsonResponse();
         $response->headers->set('Access-Control-Allow-Origin', '*');
 
         $shortCode = $request->request->get('code', '');
@@ -131,7 +130,7 @@ class ExamController extends FOSRestController
                 'code' => 404,
                 'error' => 'No short code supplied.'
             ];
-            $response->setData(json_encode($data));
+            $response->setData($data);
             return $response;
         }
 
@@ -141,7 +140,7 @@ class ExamController extends FOSRestController
                 'code' => 404,
                 'error' => 'Short code does not exist.'
             ];
-            $response->setData(json_encode($data));
+            $response->setData($data);
             return $response;
         }
 
@@ -149,7 +148,7 @@ class ExamController extends FOSRestController
             'code' => 200,
             'long_url' => $urlObj->getLongUrl()
         ];
-        $response->setData(json_encode($data));
+        $response->setData($data);
         return $response;
     }
 }
