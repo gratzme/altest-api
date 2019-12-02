@@ -8,7 +8,6 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Service\ShortUrls;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Exam Controller
@@ -149,6 +148,7 @@ class ExamController extends FOSRestController
         ];
         $response->setData($data);
         $response->headers->set('Access-Control-Allow-Origin', '*');
+        $response->headers->set("Access-Control-Allow-Headers", "*");
         return $response;
     }
 }
