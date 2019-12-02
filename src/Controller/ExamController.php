@@ -34,7 +34,6 @@ class ExamController extends FOSRestController
         $urlList = $this->shortUrls->getUrlList();
         $response = new JsonResponse();
         $response->setData($urlList);
-        $response->headers->set('Access-Control-Allow-Origin', '*');
         return $response;
     }
 
