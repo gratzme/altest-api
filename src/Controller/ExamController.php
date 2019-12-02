@@ -125,6 +125,8 @@ class ExamController extends FOSRestController
         
         $shortCode = $request->request->get('code', '');
         $shortCode = json_decode($shortCode, TRUE);
+        $response->setData($shortCode);
+        return $response;
 
         if(empty($shortCode)) {
             $data = [
