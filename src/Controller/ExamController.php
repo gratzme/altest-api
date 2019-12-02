@@ -26,6 +26,7 @@ class ExamController extends FOSRestController
     /**
      * Lists all urls
      * @Rest\Get("/list")
+     * @Method({"GET", "OPTIONS"})
      * 
      * @return JsonResponse
      */
