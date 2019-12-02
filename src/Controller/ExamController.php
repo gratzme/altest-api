@@ -5,14 +5,14 @@ namespace App\Controller;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Service\ShortUrls;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Exam Controller
- * @Route("/api", name="api_",)
+ * @Route("/api", name="api_")
  */
 class ExamController extends FOSRestController
 {
@@ -27,14 +27,17 @@ class ExamController extends FOSRestController
     /**
      * Lists all urls
      * @Rest\Get("/list")
-     * @Method({"GET", "OPTIONS"})
      * 
      * @return JsonResponse
      */
     public function list()
     {
         $urlList = $this->shortUrls->getUrlList();
-        $response = new JsonResponse($urlList);
+        // $response = new JsonResponse($urlList);
+        // $response->headers->set('Access-Control-Allow-Origin', '*');
+        $response = new Response();
+        $response->setContent(json_encode($urlList));
+        $response->headers->set('Content-Type', 'application/json');
         $response->headers->set('Access-Control-Allow-Origin', '*');
         return $response;
     }
