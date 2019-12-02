@@ -112,7 +112,7 @@ class ExamController extends FOSRestController
     }
 
     /**
-     * @Rest\Put("/expand")
+     * @Rest\Post("/expand")
      * 
      * @return JsonResponse
      */
