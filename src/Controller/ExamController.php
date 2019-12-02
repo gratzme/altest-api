@@ -148,7 +148,6 @@ class ExamController extends FOSRestController
         ];
         $response->setData($data);
         $response->headers->set('Access-Control-Allow-Origin', '*');
-        $response->headers->set("Access-Control-Allow-Methods", "POST, GET, OPTIONS");
         
         return $response;
     }
