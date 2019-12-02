@@ -122,7 +122,6 @@ class ExamController extends FOSRestController
     public function expandShortenUrl(Request $request)
     {
         $response = new JsonResponse();
-        $response->headers->set('Access-Control-Allow-Origin', '*');
 
         $shortCode = $request->request->get('code', '');
         if(empty($shortCode)) {
@@ -149,6 +148,7 @@ class ExamController extends FOSRestController
             'long_url' => $urlObj->getLongUrl()
         ];
         $response->setData($data);
+        $response->headers->set('Access-Control-Allow-Origin', '*');
         return $response;
     }
 }
