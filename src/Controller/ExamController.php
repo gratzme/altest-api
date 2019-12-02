@@ -46,7 +46,6 @@ class ExamController extends FOSRestController
     public function shortenUrl(Request $request)
     {
         $response = new JsonResponse();
-        $response->headers->set('Access-Control-Allow-Origin', '*');
 
         $url = $request->request->get('url', '');
         if(empty($url)) {

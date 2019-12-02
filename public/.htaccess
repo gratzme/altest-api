@@ -66,5 +66,5 @@ DirectoryIndex index.php
 </IfModule>
 
 <IfModule mod_headers.c>
-    Header set Access-Control-Allow-Origin "*"
+    Header set Access-Control-Allow-Origin "https://thawing-bastion-69822.herokuapp.com/"
 </IfModule>
