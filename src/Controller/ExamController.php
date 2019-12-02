@@ -121,7 +121,6 @@ class ExamController extends FOSRestController
     public function expandShortenUrl(Request $request)
     {
         $response = new JsonResponse();
-        $response->headers->set('Content-Type', 'application/json');
         $response->headers->set('Access-Control-Allow-Origin', '*');
 
         $shortCode = $request->request->get('code', '');
