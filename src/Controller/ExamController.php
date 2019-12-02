@@ -117,11 +117,11 @@ class ExamController extends FOSRestController
     /**
      * @Rest\Post("/expand")
      * 
-     * @return Response
+     * @return JsonResponse
      */
     public function expandShortenUrl(Request $request)
     {
-        $response = new Response();
+        $response = new JsonResponse();
 
         $shortCode = $request->request->get('code', '');
         if(empty($shortCode)) {
@@ -149,7 +149,7 @@ class ExamController extends FOSRestController
         ];
         $response->setData($data);
         $response->headers->set('Access-Control-Allow-Origin', '*');
-        $response->headers->set('Content-Type', 'application/json');
+        $response->headers->set("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
         return $response;
     }
 }
