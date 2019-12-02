@@ -149,8 +149,6 @@ class ExamController extends FOSRestController
         ];
         $response->setData($data);
         $response->headers->set('Access-Control-Allow-Origin', '*');
-        $response->headers->set("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-        $response->headers->set('Content-Type', 'application/json');
         return $response;
     }
 }
